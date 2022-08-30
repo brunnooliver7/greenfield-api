@@ -15,11 +15,25 @@ public class MedicoService {
   
   private final MedicoRepository medicoRepository;
 
+  public List<Medico> findAll() {
+    return medicoRepository.findAll();
+  }
+
+  public Medico findOne(Long id) {
+    return medicoRepository.findById(id).get();
+  }
+
   public Medico save(Medico medico) {
     return medicoRepository.save(medico);
   }
 
-  public List<Medico> findAll() {
-    return medicoRepository.findAll();
+  public Medico update(Medico medico) {
+    Medico medicoSalvo = medicoRepository.findById(medico.getId()).get();
+    medico.setId(medicoSalvo.getId());
+    return medicoRepository.save(medico);
+  }
+
+  public void delete(Long id) {
+    medicoRepository.deleteById(id);
   }
 }
