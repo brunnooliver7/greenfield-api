@@ -29,8 +29,8 @@ public class MedicoController {
   }
 
   @GetMapping("/{id}")
-  public Medico findOne(@PathVariable Long id) {
-    return medicoService.findOne(id);
+  public Medico findById(@PathVariable Long id) {
+    return medicoService.findById(id);
   }
 
   @PostMapping

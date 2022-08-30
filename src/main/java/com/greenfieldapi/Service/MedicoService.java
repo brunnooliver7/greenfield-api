@@ -19,7 +19,7 @@ public class MedicoService {
     return medicoRepository.findAll();
   }
 
-  public Medico findOne(Long id) {
+  public Medico findById(Long id) {
     return medicoRepository.findById(id).get();
   }
 
