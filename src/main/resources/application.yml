@@ -13,7 +13,9 @@ spring:
     jpa:
         database: POSTGRESQL
         show-sql: true
-        hibernate.ddl-auto: create
+        hibernate.ddl-auto: create-drop
+
+    banner.location: classpath:banner.txt
 
 # Server
 server.port: 8080
