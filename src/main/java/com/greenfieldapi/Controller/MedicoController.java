@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenfieldapi.DTO.MedicoDTO;
+import com.greenfieldapi.Mapper.MedicoMapper;
 import com.greenfieldapi.Model.Medico;
 import com.greenfieldapi.Service.MedicoService;
 
@@ -24,23 +26,29 @@ public class MedicoController {
   private final MedicoService medicoService;
 
   @GetMapping
-  public List<Medico> findAll() {
-    return medicoService.findAll();
+  public List<MedicoDTO> findAll() {
+    List<Medico> medicos = medicoService.findAll();
+    return MedicoMapper.INSTANCE.toDTOs(medicos);
   }
 
   @GetMapping("/{id}")
-  public Medico findById(@PathVariable Long id) {
-    return medicoService.findById(id);
+  public MedicoDTO findById(@PathVariable Long id) {
+    Medico medico = medicoService.findById(id);
+    return MedicoMapper.INSTANCE.toDTO(medico);
   }
 
   @PostMapping
-  public Medico save(@RequestBody Medico medico) {
-    return medicoService.save(medico);
+  public MedicoDTO save(@RequestBody MedicoDTO medicoDTO) {
+    Medico medico = MedicoMapper.INSTANCE.toEntity(medicoDTO);
+    medico = medicoService.save(medico);
+    return MedicoMapper.INSTANCE.toDTO(medico);
   }
 
   @PutMapping
-  public Medico update(@RequestBody Medico medico) {
-    return medicoService.update(medico);
+  public MedicoDTO update(@RequestBody MedicoDTO medicoDTO) {
+    Medico medico = MedicoMapper.INSTANCE.toEntity(medicoDTO);
+    medico = medicoService.update(medico);
+    return MedicoMapper.INSTANCE.toDTO(medico);
   }
 
   @DeleteMapping("/{id}")

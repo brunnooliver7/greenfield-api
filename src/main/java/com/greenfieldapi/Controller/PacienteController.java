@@ -47,7 +47,7 @@ public class PacienteController {
   @PutMapping
   public PacienteDTO update(@RequestBody PacienteDTO pacienteDTO) {
     Paciente paciente = PacienteMapper.INSTANCE.toEntity(pacienteDTO);
-    paciente = pacienteService.save(paciente);
+    paciente = pacienteService.update(paciente);
     return PacienteMapper.INSTANCE.toDTO(paciente);
   }
 
