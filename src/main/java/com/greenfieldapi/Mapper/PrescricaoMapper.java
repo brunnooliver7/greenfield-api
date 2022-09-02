@@ -15,7 +15,7 @@ public interface PrescricaoMapper {
   public PrescricaoMapper INSTANCE = Mappers.getMapper(PrescricaoMapper.class);
 
   PrescricaoDTO toDTO(Prescricao entity);
-  List<PrescricaoDTO> toDTOs(List<Prescricao> entity);
+  List<PrescricaoDTO> toDTOs(List<Prescricao> entities);
 
   @Mapping(target = "medico", ignore = true)
   @Mapping(target = "paciente", ignore = true)
