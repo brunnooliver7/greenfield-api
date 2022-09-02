@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenfieldapi.DTO.PacienteDTO;
+import com.greenfieldapi.Mapper.PacienteMapper;
 import com.greenfieldapi.Model.Paciente;
 import com.greenfieldapi.Service.PacienteService;
 
@@ -24,23 +26,29 @@ public class PacienteController {
   private final PacienteService pacienteService;
 
   @GetMapping
-  public List<Paciente> findAll() {
-    return pacienteService.findAll();
+  public List<PacienteDTO> findAll() {
+    List<Paciente> pacientes = pacienteService.findAll();
+    return PacienteMapper.INSTANCE.toDTOs(pacientes);
   }
 
   @GetMapping("/{id}")
-  public Paciente findById(@PathVariable Long id) {
-    return pacienteService.findById(id);
+  public PacienteDTO findById(@PathVariable Long id) {
+    Paciente paciente = pacienteService.findById(id);
+    return PacienteMapper.INSTANCE.toDTO(paciente);
   }
 
   @PostMapping
-  public Paciente save(@RequestBody Paciente paciente) {
-    return pacienteService.save(paciente);
+  public PacienteDTO save(@RequestBody PacienteDTO pacienteDTO) {
+    Paciente paciente = PacienteMapper.INSTANCE.toEntity(pacienteDTO);
+    paciente = pacienteService.save(paciente);
+    return PacienteMapper.INSTANCE.toDTO(paciente);
   }
 
   @PutMapping
-  public Paciente update(@RequestBody Paciente paciente) {
-    return pacienteService.update(paciente);
+  public PacienteDTO update(@RequestBody PacienteDTO pacienteDTO) {
+    Paciente paciente = PacienteMapper.INSTANCE.toEntity(pacienteDTO);
+    paciente = pacienteService.save(paciente);
+    return PacienteMapper.INSTANCE.toDTO(paciente);
   }
 
   @DeleteMapping("/{id}")
