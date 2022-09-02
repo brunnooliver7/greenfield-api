@@ -14,11 +14,17 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "Tb_Paciente")
-@Data
+@Table(name = "tb_paciente")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Paciente {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
