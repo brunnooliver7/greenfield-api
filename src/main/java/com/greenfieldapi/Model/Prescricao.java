@@ -33,20 +33,20 @@ public class Prescricao {
 
   @ManyToOne
   @JsonIgnore
-  @JoinColumn(name = "medico_id", nullable = false)
+  @JoinColumn(name = "medico_id", insertable = false, updatable = false)
   private Medico medico;
 
-  @Column(name = "medico_id", insertable = false, updatable = false)
+  @Column(name = "medico_id")
   private Long medicoId;
 
   @ManyToOne
   @JsonIgnore
-  @JoinColumn(name = "paciente_id", nullable = false)
+  @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
   private Paciente paciente;
 
-  @Column(name = "paciente_id", insertable = false, updatable = false)
+  @Column(name = "paciente_id")
   private Long pacienteId;
 
-  @OneToMany(mappedBy = "prescricao", cascade = CascadeType.REMOVE)
+  @OneToMany(cascade = CascadeType.ALL)
   private List<Medicamento> medicamentos;
 }
