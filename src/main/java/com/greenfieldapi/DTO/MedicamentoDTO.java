@@ -11,5 +11,4 @@ public class MedicamentoDTO {
   private Integer quantidade;
   private String dosagem;
   private String frequencia;
-  // private Long prescricaoId;
 }

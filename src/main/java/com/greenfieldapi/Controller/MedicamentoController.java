@@ -1,5 +1,6 @@
 package com.greenfieldapi.Controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenfieldapi.DTO.MedicamentoDTO;
+import com.greenfieldapi.Mapper.MedicamentoMapper;
 import com.greenfieldapi.Model.Medicamento;
 import com.greenfieldapi.Service.MedicamentoService;
 
@@ -24,19 +27,26 @@ public class MedicamentoController {
   private final MedicamentoService medicamentoService;
 
   @GetMapping("/{id}")
-  public Medicamento findById(@PathVariable Long id) {
-    return medicamentoService.findById(id);
+  public MedicamentoDTO findById(@PathVariable Long id) {
+    Medicamento medicamento = medicamentoService.findById(id);
+    return MedicamentoMapper.INSTANCE.toDTO(medicamento);
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Medicamento save(@RequestBody Medicamento medicamento) {
-    return medicamentoService.save(medicamento);
+  public MedicamentoDTO save(@RequestBody MedicamentoDTO medicamentoDTO) {
+    Medicamento medicamento = MedicamentoMapper.INSTANCE.toEntity(medicamentoDTO);
+    medicamento = medicamentoService.save(medicamento);
+    return MedicamentoMapper.INSTANCE.toDTO(medicamento);
   }
 
   @PutMapping
-  public Medicamento update(@RequestBody Medicamento medicamento) {
-    return medicamentoService.update(medicamento);
+  public MedicamentoDTO update(@RequestBody MedicamentoDTO medicamentoDTO) {
+    Medicamento medicamentoNovo = MedicamentoMapper.INSTANCE.toEntity(medicamentoDTO);
+    Medicamento medicamentoAtual = medicamentoService.findById(medicamentoNovo.getId());
+    BeanUtils.copyProperties(medicamentoNovo, medicamentoAtual, "id");
+    medicamentoNovo = medicamentoService.save(medicamentoNovo);
+    return MedicamentoMapper.INSTANCE.toDTO(medicamentoNovo);
   }
 
   @DeleteMapping("/{id}")
