@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MedicoService {
-  
+
   private final MedicoRepository medicoRepository;
 
   public List<Medico> findAll() {
@@ -24,12 +24,6 @@ public class MedicoService {
   }
 
   public Medico save(Medico medico) {
-    return medicoRepository.save(medico);
-  }
-
-  public Medico update(Medico medico) {
-    Medico medicoSalvo = medicoRepository.findById(medico.getId()).get();
-    medico.setId(medicoSalvo.getId());
     return medicoRepository.save(medico);
   }
 
