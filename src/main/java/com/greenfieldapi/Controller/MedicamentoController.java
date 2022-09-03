@@ -1,5 +1,6 @@
 package com.greenfieldapi.Controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenfieldapi.Model.Medicamento;
@@ -27,6 +29,7 @@ public class MedicamentoController {
   }
 
   @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
   public Medicamento save(@RequestBody Medicamento medicamento) {
     return medicamentoService.save(medicamento);
   }
@@ -37,6 +40,7 @@ public class MedicamentoController {
   }
 
   @DeleteMapping("/{id}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable Long id) {
     medicamentoService.delete(id);
   }
