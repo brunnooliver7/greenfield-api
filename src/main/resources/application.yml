@@ -2,14 +2,12 @@ spring:
 
     profiles.active: dev
 
-    # Postgres
     datasource:
         driverClassName: org.postgresql.Driver
         url: jdbc:postgresql://localhost/postgres
         username: root
         password: root
 
-    # JPA
     jpa:
         database: POSTGRESQL
         show-sql: true
@@ -17,5 +15,7 @@ spring:
 
     banner.location: classpath:banner.txt
 
-# Server
+    jackson.deserialization:
+        fail-on-unknown-properties: true
+
 server.port: 8080
