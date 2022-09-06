@@ -3,6 +3,7 @@ package com.greenfieldapi.api.exceptionHandler;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -49,6 +50,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
 
     return handleExceptionInternal(ex, exceptionBody, new HttpHeaders(), status, request);
+  }
+
+  @Override
+  protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
+      HttpStatus status, WebRequest request) {
+
+    ExceptionType exceptionType = ExceptionType.MENSAGEM_INCOMPREENSIVEL;
+    String detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
+
+    ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
+
+    return handleExceptionInternal(ex, exceptionBody, headers, status, request);
   }
 
   @Override
