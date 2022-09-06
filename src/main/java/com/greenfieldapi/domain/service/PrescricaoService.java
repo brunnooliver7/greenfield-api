@@ -2,8 +2,10 @@ package com.greenfieldapi.domain.service;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.PrescricaoNaoEncontradaException;
 import com.greenfieldapi.domain.model.Prescricao;
 import com.greenfieldapi.domain.repository.PrescricaoRepository;
 
@@ -24,7 +26,7 @@ public class PrescricaoService {
   }
 
   public Prescricao findById(Long id) {
-    return prescricaoRepository.findById(id).get();
+    return prescricaoRepository.findById(id).orElseThrow(() -> new PrescricaoNaoEncontradaException(id));
   }
 
   public Prescricao save(Prescricao prescricao) {
@@ -36,6 +38,10 @@ public class PrescricaoService {
   }
 
   public void delete(Long id) {
-    prescricaoRepository.deleteById(id);
+    try {
+      prescricaoRepository.deleteById(id);
+    } catch (EmptyResultDataAccessException e) {
+      throw new PrescricaoNaoEncontradaException(id);
+    }
   }
 }

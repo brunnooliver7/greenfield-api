@@ -2,8 +2,10 @@ package com.greenfieldapi.domain.service;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.PacienteNaoEncontradoException;
 import com.greenfieldapi.domain.model.Paciente;
 import com.greenfieldapi.domain.repository.PacienteRepository;
 
@@ -20,7 +22,7 @@ public class PacienteService {
   }
 
   public Paciente findById(Long id) {
-    return pacienteRepository.findById(id).get();
+    return pacienteRepository.findById(id).orElseThrow(() -> new PacienteNaoEncontradoException(id));
   }
 
   public Paciente save(Paciente paciente) {
@@ -28,7 +30,11 @@ public class PacienteService {
   }
 
   public void delete(Long id) {
-    pacienteRepository.deleteById(id);
+    try {
+      pacienteRepository.deleteById(id);
+    } catch (EmptyResultDataAccessException e) {
+      throw new PacienteNaoEncontradoException(id);
+    }
   }
 
 }
