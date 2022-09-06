@@ -1,5 +1,8 @@
 package com.greenfieldapi.api.exceptionHandler;
 
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.greenfieldapi.domain.exception.NegocioException;
 import com.greenfieldapi.domain.exception.EntidadeEmUso.EntidadeEmUsoException;
 import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.EntidadeNaoEncontradaException;
@@ -23,7 +27,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionType exceptionType = ExceptionType.ERRO_NEGOCIO;
     String detail = ex.getMessage();
 
-    ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
+    ExceptionBody exceptionBody = createExceptionBuilder(status, exceptionType, detail).build();
 
     return handleExceptionInternal(ex, exceptionBody, new HttpHeaders(), status, request);
   }
@@ -35,7 +39,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionType exceptionType = ExceptionType.ENTIDADE_NAO_ENCONTRADA;
     String detail = ex.getMessage();
 
-    ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
+    ExceptionBody exceptionBody = createExceptionBuilder(status, exceptionType, detail).build();
 
     return handleExceptionInternal(ex, exceptionBody, new HttpHeaders(), status, request);
   }
@@ -47,7 +51,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionType exceptionType = ExceptionType.ENTIDADE_EM_USO;
     String detail = ex.getMessage();
 
-    ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
+    ExceptionBody exceptionBody = createExceptionBuilder(status, exceptionType, detail).build();
 
     return handleExceptionInternal(ex, exceptionBody, new HttpHeaders(), status, request);
   }
@@ -56,10 +60,33 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
       HttpStatus status, WebRequest request) {
 
+    Throwable rootCause = ExceptionUtils.getRootCause(ex);
+
+    if (rootCause instanceof InvalidFormatException) {
+      return handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);
+    }
+
     ExceptionType exceptionType = ExceptionType.MENSAGEM_INCOMPREENSIVEL;
     String detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
 
-    ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
+    ExceptionBody exceptionBody = createExceptionBuilder(status, exceptionType, detail).build();
+
+    return handleExceptionInternal(ex, exceptionBody, headers, status, request);
+  }
+
+  private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, HttpHeaders headers,
+      HttpStatus status, WebRequest request) {
+
+    String path = ex.getPath().stream()
+        .map(ref -> ref.getFieldName())
+        .collect(Collectors.joining("."));
+
+    ExceptionType exceptionType = ExceptionType.MENSAGEM_INCOMPREENSIVEL;
+    String detail = String.format("A propriedade '%s' recebeu o valor '%s', "
+        + "que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s.",
+        path, ex.getValue(), ex.getTargetType().getSimpleName());
+
+    ExceptionBody exceptionBody = createExceptionBuilder(status, exceptionType, detail).build();
 
     return handleExceptionInternal(ex, exceptionBody, headers, status, request);
   }
@@ -83,7 +110,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     return super.handleExceptionInternal(ex, body, headers, status, request);
   }
 
-  private ExceptionBody.ExceptionBodyBuilder createExceptionBodyBuilder(HttpStatus status,
+  private ExceptionBody.ExceptionBodyBuilder createExceptionBuilder(HttpStatus status,
       ExceptionType exceptionType, String detail) {
 
     return ExceptionBody.builder()
