@@ -56,7 +56,7 @@ public class PrescricaoController {
   @PutMapping
   public PrescricaoDTO update(@RequestBody PrescricaoDTO prescricaoDTO) {
     Prescricao prescricao = PrescricaoMapper.INSTANCE.toEntity(prescricaoDTO);
-    prescricao = prescricaoService.update(prescricao);
+    prescricao = prescricaoService.save(prescricao);
     return PrescricaoMapper.INSTANCE.toDTO(prescricao);
   }
 

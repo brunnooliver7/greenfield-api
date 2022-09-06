@@ -33,10 +33,6 @@ public class PrescricaoService {
     return prescricaoRepository.save(prescricao);
   }
 
-  public Prescricao update(Prescricao prescricao) {
-    return prescricaoRepository.save(prescricao);
-  }
-
   public void delete(Long id) {
     try {
       prescricaoRepository.deleteById(id);
