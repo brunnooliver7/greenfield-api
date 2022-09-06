@@ -1,7 +1,5 @@
 package com.greenfieldapi.api.exceptionHandler;
 
-import java.time.LocalDateTime;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +16,39 @@ import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.EntidadeNaoEncon
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(NegocioException.class)
-  public ResponseEntity<?> tratarNegocioException(NegocioException ex, WebRequest request) {
-    return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+  public ResponseEntity<?> handleNegocioException(NegocioException ex, WebRequest request) {
+
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    ExceptionType exceptionType = ExceptionType.ERRO_NEGOCIO;
+    String detail = ex.getMessage();
+
+    ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
+
+    return handleExceptionInternal(ex, exceptionBody, new HttpHeaders(), status, request);
   }
 
   @ExceptionHandler(EntidadeNaoEncontradaException.class)
-  public ResponseEntity<?> tratarEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex, WebRequest request) {
-    return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  public ResponseEntity<?> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex, WebRequest request) {
+
+    HttpStatus status = HttpStatus.NOT_FOUND;
+    ExceptionType exceptionType = ExceptionType.ENTIDADE_NAO_ENCONTRADA;
+    String detail = ex.getMessage();
+
+    ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
+
+    return handleExceptionInternal(ex, exceptionBody, new HttpHeaders(), status, request);
   }
 
   @ExceptionHandler(EntidadeEmUsoException.class)
-  public ResponseEntity<?> tratarEntidadeEmUsoException(EntidadeEmUsoException ex, WebRequest request) {
-    return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
+  public ResponseEntity<?> handleEntidadeEmUsoException(EntidadeEmUsoException ex, WebRequest request) {
+
+    HttpStatus status = HttpStatus.CONFLICT;
+    ExceptionType exceptionType = ExceptionType.ENTIDADE_EM_USO;
+    String detail = ex.getMessage();
+
+    ExceptionBody exceptionBody = createExceptionBodyBuilder(status, exceptionType, detail).build();
+
+    return handleExceptionInternal(ex, exceptionBody, new HttpHeaders(), status, request);
   }
 
   @Override
@@ -38,16 +57,27 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     if (body == null) {
       body = ExceptionBody.builder()
-          .dataHora(LocalDateTime.now())
-          .mensagem(status.getReasonPhrase())
+          .title(status.getReasonPhrase())
+          .status(status.value())
           .build();
     } else if (body instanceof String) {
       body = ExceptionBody.builder()
-          .dataHora(LocalDateTime.now())
-          .mensagem((String) body)
+          .title((String) body)
+          .status(status.value())
           .build();
     }
 
     return super.handleExceptionInternal(ex, body, headers, status, request);
   }
+
+  private ExceptionBody.ExceptionBodyBuilder createExceptionBodyBuilder(HttpStatus status,
+      ExceptionType exceptionType, String detail) {
+
+    return ExceptionBody.builder()
+        .status(status.value())
+        .type(exceptionType.getUri())
+        .title(exceptionType.getTitle())
+        .detail(detail);
+  }
+
 }
