@@ -2,6 +2,8 @@ package com.greenfieldapi.api.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,7 +44,7 @@ public class MedicoController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public MedicoDTO save(@RequestBody MedicoDTO medicoDTO) {
+  public MedicoDTO save(@RequestBody @Valid MedicoDTO medicoDTO) {
     Medico medico = MedicoMapper.INSTANCE.toEntity(medicoDTO);
     medico = medicoService.save(medico);
     return MedicoMapper.INSTANCE.toDTO(medico);
