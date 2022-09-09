@@ -51,7 +51,7 @@ public class MedicoController {
   }
 
   @PutMapping
-  public MedicoDTO update(@RequestBody MedicoDTO medicoDTO) {
+  public MedicoDTO update(@RequestBody @Valid MedicoDTO medicoDTO) {
     Medico medicoNovo = MedicoMapper.INSTANCE.toEntity(medicoDTO);
     Medico medicoAtual = medicoService.findById(medicoNovo.getId());
     BeanUtils.copyProperties(medicoNovo, medicoAtual, "id");

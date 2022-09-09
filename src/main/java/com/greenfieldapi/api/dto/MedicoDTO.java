@@ -3,7 +3,12 @@ package com.greenfieldapi.api.dto;
 import java.util.Date;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,31 +18,34 @@ import lombok.Setter;
 public class MedicoDTO {
   private Long id;
 
-  @NotNull
+  @NotBlank
+  @CPF
   private String cpf;
   
-  @NotNull
+  @NotBlank
   @Email
   private String email;
   
-  @NotNull
+  @NotBlank
   private String nome;
   
   @NotNull
+  @PastOrPresent
   private Date dtNascimento;
   
-  @NotNull
+  @NotBlank
   private String crm;
   
-  @NotNull
+  @NotBlank
   private String estadoRegistroCrm;
   
-  @NotNull
+  @NotBlank
   private String estado;
   
-  @NotNull
-  private Character sexo;
+  @NotBlank
+  @Size(min = 1)
+  private String sexo;
   
-  @NotNull
+  @NotBlank
   private String senha;
 }
