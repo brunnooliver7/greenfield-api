@@ -69,6 +69,14 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- H2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.1.214</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Flyway -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
@@ -98,9 +106,24 @@
 
 		<!-- Apache Commons -->
 		<dependency>
-    	<groupId>org.apache.commons</groupId>
-    	<artifactId>commons-lang3</artifactId>
-    </dependency>		
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<!-- Gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.9.1</version>
+		</dependency>
+
+		<!-- REST Assured -->
+		<dependency>
+    	<groupId>io.rest-assured</groupId>
+    	<artifactId>rest-assured</artifactId>
+    	<scope>test</scope>
+    </dependency>
+
 	</dependencies>
 
 	<build>
@@ -145,14 +168,14 @@
 							<artifactId>lombok</artifactId>
 							<version>1.18.24</version>
 						</path>
-						
+
 						<!-- Lombok-MapStruct -->
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok-mapstruct-binding</artifactId>
 							<version>0.2.0</version>
 						</path>
-						
+
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>

@@ -1,0 +1,15 @@
+spring:
+    datasource:
+        url: jdbc:h2:~/testdb;DB_CLOSE_DELAY=-1
+        username: sa
+        password: 
+        driverClassName: org.h2.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        show-sql: true
+        hibernate.ddl-auto: create
+    hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        hbm2ddl.auto: create
+    flyway.enabled: false
+    jackson.deserialization.fail-on-unknown-properties: true
