@@ -10,6 +10,7 @@ public enum ExceptionType {
 	ENTIDADE_EM_USO("/entidade-em-uso", "Entidade em uso"),
   MENSAGEM_INCOMPREENSIVEL("/mensagem-incompreensivel", "Mensagem incompreensível"),
 	PARAMETRO_INVALIDO("/parametro-invalido", "Parâmetro inválido"),
+	URL_INVALIDA("url-invalida", "URL inválida"),
 	ERRO_DE_SISTEMA("/erro-de-sistema", "Erro de sistema");
 
 	private String title;

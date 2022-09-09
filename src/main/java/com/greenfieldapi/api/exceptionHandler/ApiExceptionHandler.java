@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -70,6 +71,19 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionBody exceptionBody = createExceptionBuilder(status, exceptionType, detail).build();
 
     return handleExceptionInternal(ex, exceptionBody, new HttpHeaders(), status, request);
+  }
+
+  @Override
+  protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex,
+      HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        ExceptionType exceptionType = ExceptionType.URL_INVALIDA;
+    String detail = String.format("A URL da requisição é inválida. Verifique erro de sintaxe.",
+        ex.getRequestURL());
+
+        ExceptionBody exceptionBody = createExceptionBuilder(status, exceptionType, detail).build();
+
+    return handleExceptionInternal(ex, exceptionBody, headers, status, request);
   }
 
   @Override
