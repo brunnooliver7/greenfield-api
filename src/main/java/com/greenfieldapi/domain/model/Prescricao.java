@@ -12,8 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,19 +31,19 @@ public class Prescricao {
   private Long id;
 
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "medico_id", insertable = false, updatable = false)
   private Medico medico;
-
-  @Column(name = "medico_id")
+  
+  @Column(name = "medico_id", nullable = false)
+  @NotNull
   private Long medicoId;
-
+  
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "paciente_id", insertable = false, updatable = false)
   private Paciente paciente;
 
-  @Column(name = "paciente_id")
+  @Column(name = "paciente_id", nullable = false)
+  @NotNull
   private Long pacienteId;
 
   @OneToMany(cascade = CascadeType.ALL)
