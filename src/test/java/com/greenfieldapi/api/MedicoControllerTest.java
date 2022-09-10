@@ -54,6 +54,21 @@ public class MedicoControllerTest extends ApiTest {
     assertEquals(3, size);
   }
 
+  @Test
+  public void deve_obter_um_medico() {
+
+    Medico medico = medicoRepository.save(
+      criarMedico("91354036085", "a@email", "001")
+    );
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/medico/" + medico.getId().toString())
+    .then()
+      .statusCode(HttpStatus.OK.value());    
+  }
+
   private Medico criarMedico(String cpf, String email, String crm) {
     return Medico.builder()
       .cpf(cpf)
