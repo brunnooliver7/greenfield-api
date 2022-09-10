@@ -25,8 +25,12 @@ public class MedicoControllerTest extends ApiTest {
   
   @Test
   public void deve_criar_medico() {
+
+    Medico medico = criarMedico("91354036085", "a@email.com", "001");
+    MedicoDTO dto = MedicoMapper.INSTANCE.toDTO(medico);
+
     given()
-      .body(criarJson(criarMedico("91354036085", "a@email.com", "001")))
+      .body(dto)
       .contentType(ContentType.JSON)
       .accept(ContentType.JSON)
     .when()
