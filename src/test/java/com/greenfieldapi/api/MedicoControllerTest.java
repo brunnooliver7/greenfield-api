@@ -9,11 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import com.greenfieldapi.api.dto.MedicoDTO;
+import com.greenfieldapi.api.mapper.MedicoMapper;
 import com.greenfieldapi.domain.model.Medico;
 import com.greenfieldapi.domain.repository.MedicoRepository;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import static org.hamcrest.Matchers.equalTo;
 
 public class MedicoControllerTest extends ApiTest {
 
@@ -21,7 +24,7 @@ public class MedicoControllerTest extends ApiTest {
   MedicoRepository medicoRepository;
   
   @Test
-  void deve_criar_medico() throws Exception {
+  public void deve_criar_medico() {
     given()
       .body(criarJson(criarMedico("91354036085", "a@email.com", "001")))
       .contentType(ContentType.JSON)
@@ -30,6 +33,27 @@ public class MedicoControllerTest extends ApiTest {
       .post("/medico")
     .then()
       .statusCode(HttpStatus.CREATED.value());
+  }
+
+  @Test
+  public void deve_alterar_um_medico() {
+
+    Medico medico = medicoRepository.save(
+      criarMedico("91354036085", "a@email", "001")
+    );
+
+    MedicoDTO dto = MedicoMapper.INSTANCE.toDTO(medico);
+    dto.setCrm("002");
+
+    given()
+      .body(dto)
+      .contentType(ContentType.JSON)
+      .accept(ContentType.JSON)
+    .when()
+      .put("/medico")
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("crm", equalTo(dto.getCrm()));
   }
 
   @Test
