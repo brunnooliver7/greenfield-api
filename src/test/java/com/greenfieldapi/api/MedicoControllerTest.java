@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class MedicoControllerTest extends ApiTest {
 
   @Autowired
-  MedicoRepository medicoRepository;
+  private MedicoRepository medicoRepository;
   
   @Test
   public void deve_criar_medico() {
@@ -95,6 +95,21 @@ public class MedicoControllerTest extends ApiTest {
       .get("/medico/" + medico.getId().toString())
     .then()
       .statusCode(HttpStatus.OK.value());    
+  }
+
+  @Test
+  public void deve_deletar_um_medico() {
+
+    Medico medico = medicoRepository.save(
+      criarMedico("91354036085", "a@email", "001")
+    );
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .delete("/medico/" + medico.getId().toString())
+    .then()
+      .statusCode(HttpStatus.NO_CONTENT.value());
   }
 
   private Medico criarMedico(String cpf, String email, String crm) {
