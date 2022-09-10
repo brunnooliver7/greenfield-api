@@ -18,7 +18,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import static org.hamcrest.Matchers.equalTo;
 
-public class MedicoControllerTest extends ApiTest {
+public class MedicoApiTest extends ApiTest {
 
   @Autowired
   private MedicoRepository medicoRepository;
