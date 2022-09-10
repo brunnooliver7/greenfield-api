@@ -69,14 +69,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- H2 -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>2.1.214</version>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- Flyway -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
@@ -119,10 +111,18 @@
 
 		<!-- REST Assured -->
 		<dependency>
-    	<groupId>io.rest-assured</groupId>
-    	<artifactId>rest-assured</artifactId>
-    	<scope>test</scope>
-    </dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Zonky Embedded Database -->
+		<dependency>
+			<groupId>io.zonky.test</groupId>
+			<artifactId>embedded-database-spring-test</artifactId>
+			<version>2.1.2</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 

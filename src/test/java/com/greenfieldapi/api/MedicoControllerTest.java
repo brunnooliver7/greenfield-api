@@ -6,10 +6,11 @@ import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,9 +18,11 @@ import com.greenfieldapi.domain.model.Medico;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@AutoConfigureEmbeddedDatabase
 public class MedicoControllerTest {
 
   @LocalServerPort
