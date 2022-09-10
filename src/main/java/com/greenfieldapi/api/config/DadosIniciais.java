@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -23,6 +24,9 @@ import com.greenfieldapi.domain.repository.PrescricaoRepository;
 public class DadosIniciais implements ApplicationRunner {
 
   @Autowired
+  private Flyway flyway;
+
+  @Autowired
   private MedicoRepository medicoRepository;
 
   @Autowired
@@ -33,6 +37,10 @@ public class DadosIniciais implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
+
+    flyway.clean();
+    flyway.migrate();
+
     Medico medico1 = medicoRepository.save(criarMedico1());
     Medico medico2 = medicoRepository.save(criarMedico2());
     Medico medico3 = medicoRepository.save(criarMedico3());
