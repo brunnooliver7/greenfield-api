@@ -37,12 +37,12 @@ public class Medico {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   @NotBlank
   @CPF
   private String cpf;
   
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   @NotBlank
   @Email
   private String email;
@@ -56,7 +56,7 @@ public class Medico {
   @PastOrPresent
   private LocalDate dtNascimento;
   
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   @NotBlank
   private String crm;
   

@@ -69,7 +69,7 @@ public class DadosIniciais implements ApplicationRunner {
   
   private Medico criarMedico2() {
     return Medico.builder()
-      .cpf("07978344002")
+      .cpf("89243903098")
       .email("bernardo@email")
       .nome("Bernardo Gonçalvez")
       .dtNascimento(LocalDate.of(2000, 2, 2))
