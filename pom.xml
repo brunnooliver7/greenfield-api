@@ -102,13 +102,6 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 
-		<!-- Gson -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.9.1</version>
-		</dependency>
-
 		<!-- REST Assured -->
 		<dependency>
 			<groupId>io.rest-assured</groupId>
