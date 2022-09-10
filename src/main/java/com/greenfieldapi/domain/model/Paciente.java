@@ -1,6 +1,6 @@
 package com.greenfieldapi.domain.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +21,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +30,7 @@ import lombok.Setter;
 @Table(name = "tb_paciente")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Paciente {
@@ -48,7 +50,7 @@ public class Paciente {
   @Column(name = "dt_nascimento", nullable = false)
   @NotNull
   @PastOrPresent
-  private Date dtNascimento;
+  private LocalDate dtNascimento;
   
   @Column(nullable = false)
   @NotNull

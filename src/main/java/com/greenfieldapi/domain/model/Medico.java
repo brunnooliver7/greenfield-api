@@ -1,6 +1,6 @@
 package com.greenfieldapi.domain.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -54,7 +54,7 @@ public class Medico {
   @Column(nullable = false)
   @NotNull
   @PastOrPresent
-  private Date dtNascimento;
+  private LocalDate dtNascimento;
   
   @Column(nullable = false)
   @NotBlank
