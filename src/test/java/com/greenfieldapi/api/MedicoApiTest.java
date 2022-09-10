@@ -1,6 +1,7 @@
 package com.greenfieldapi.api;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
@@ -16,7 +17,6 @@ import com.greenfieldapi.domain.repository.MedicoRepository;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import static org.hamcrest.Matchers.equalTo;
 
 public class MedicoApiTest extends ApiTest {
 
@@ -24,7 +24,7 @@ public class MedicoApiTest extends ApiTest {
   private MedicoRepository medicoRepository;
   
   @Test
-  public void deve_criar_medico() {
+  public void deve_criar_um_medico() {
 
     Medico medico = criarMedico("91354036085", "a@email.com", "001");
     MedicoDTO dto = MedicoMapper.INSTANCE.toDTO(medico);
