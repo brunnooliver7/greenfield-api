@@ -2,6 +2,7 @@ package com.greenfieldapi.api;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 
@@ -15,6 +16,7 @@ import com.greenfieldapi.domain.model.Paciente;
 import com.greenfieldapi.domain.repository.PacienteRepository;
 
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
 public class PacienteApiTest extends ApiTest {
   
@@ -57,6 +59,29 @@ public class PacienteApiTest extends ApiTest {
       .statusCode(HttpStatus.OK.value())
       .body("nome", equalTo(dto.getNome()));
   }
+
+  @Test
+  public void deve_obter_todos_os_pacientes() {
+
+    pacienteRepository.save(criarPaciente("91354036085"));
+    pacienteRepository.save(criarPaciente("58896718040"));
+    pacienteRepository.save(criarPaciente("44981367058"));
+
+    Response response = 
+      given()
+        .accept(ContentType.JSON)
+      .when()
+        .get("/paciente")
+      .then()
+        .extract()
+        .response();
+
+    assertEquals(HttpStatus.OK.value(), response.statusCode());
+    
+    int size = response.jsonPath().getList("id").size();
+    assertEquals(3, size);
+  }
+
 
   private Paciente criarPaciente(String cpf) {
     return Paciente.builder()
