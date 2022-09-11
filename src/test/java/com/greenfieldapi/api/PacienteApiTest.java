@@ -97,6 +97,21 @@ public class PacienteApiTest extends ApiTest {
       .statusCode(HttpStatus.OK.value());    
   }
 
+  @Test
+  public void deve_deletar_um_paciente() {
+
+    Paciente paciente = pacienteRepository.save(
+      criarPaciente("91354036085")
+    );
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .delete("/paciente/" + paciente.getId().toString())
+    .then()
+      .statusCode(HttpStatus.NO_CONTENT.value());
+  }
+
   private Paciente criarPaciente(String cpf) {
     return Paciente.builder()
       .cpf(cpf)
