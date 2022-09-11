@@ -82,6 +82,20 @@ public class PacienteApiTest extends ApiTest {
     assertEquals(3, size);
   }
 
+  @Test
+  public void deve_obter_um_paciente() {
+
+    Paciente paciente = pacienteRepository.save(
+      criarPaciente("91354036085")
+    );
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/paciente/" + paciente.getId().toString())
+    .then()
+      .statusCode(HttpStatus.OK.value());    
+  }
 
   private Paciente criarPaciente(String cpf) {
     return Paciente.builder()
