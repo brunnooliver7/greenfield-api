@@ -71,6 +71,21 @@ public class MedicamentoApiTest extends ApiTest {
       .statusCode(HttpStatus.OK.value());    
   }
 
+  @Test
+  public void deve_deletar_um_medicamento() {
+
+    Medicamento medicamento = medicamentoRepository.save(
+      criarMedicamento()
+    );
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .delete("/medicamento/" + medicamento.getId().toString())
+    .then()
+      .statusCode(HttpStatus.NO_CONTENT.value());
+  }
+
   private Medicamento criarMedicamento() {
     return Medicamento.builder()
       .descricao("descricao")
