@@ -56,6 +56,20 @@ public class MedicamentoApiTest extends ApiTest {
       .body("descricao", equalTo(dto.getDescricao()));
   }
 
+  @Test
+  public void deve_obter_um_medicamento() {
+
+    Medicamento medicamento = medicamentoRepository.save(
+      criarMedicamento()
+    );
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/medicamento/" + medicamento.getId().toString())
+    .then()
+      .statusCode(HttpStatus.OK.value());    
+  }
 
   private Medicamento criarMedicamento() {
     return Medicamento.builder()
