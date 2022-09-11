@@ -4,8 +4,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDate;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -110,20 +108,6 @@ public class MedicoApiTest extends ApiTest {
       .delete("/medico/" + medico.getId().toString())
     .then()
       .statusCode(HttpStatus.NO_CONTENT.value());
-  }
-
-  private Medico criarMedico(String cpf, String email, String crm) {
-    return Medico.builder()
-      .cpf(cpf)
-      .email(email)
-      .nome("nome")
-      .dtNascimento(LocalDate.of(2000, 1, 1))
-      .crm(crm)
-      .estadoRegistroCrm("estadoRegistroCrm")
-      .estado("ES")
-      .sexo("F")
-      .senha("senha")
-      .build();
   }
 
 }

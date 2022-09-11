@@ -86,12 +86,4 @@ public class MedicamentoApiTest extends ApiTest {
       .statusCode(HttpStatus.NO_CONTENT.value());
   }
 
-  private Medicamento criarMedicamento() {
-    return Medicamento.builder()
-      .descricao("descricao")
-      .quantidade(1)
-      .dosagem("dosagem")
-      .frequencia("1 vez ao dia")
-      .build();
-  }
 }
