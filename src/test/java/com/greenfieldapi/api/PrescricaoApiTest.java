@@ -99,12 +99,48 @@ public class PrescricaoApiTest extends ApiTest {
     prescricaoRepository.save(prescricao1);
     prescricaoRepository.save(prescricao2);
 
-      given()
-        .accept(ContentType.JSON)
-      .when()
-        .get("prescricao/medico/" + medico.getId())
-      .then()
-        .body("", Matchers.hasSize(2))
-        .statusCode(HttpStatus.OK.value());
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("prescricao/medico/" + medico.getId())
+    .then()
+      .body("", Matchers.hasSize(2))
+      .statusCode(HttpStatus.OK.value());
+  }
+
+  @Test
+  public void deve_obter_todas_as_prescricoes_de_um_paciente() {
+    Medico medico = criarMedico("58896718040", "a@email", "001");
+    medico = medicoRepository.save(medico);
+
+    Paciente paciente = criarPaciente("44981367058");
+    paciente = pacienteRepository.save(paciente);
+
+    Medicamento medicamento1 = criarMedicamento();
+
+    Medicamento medicamento2 = criarMedicamento();
+
+    Prescricao prescricao1 = Prescricao.builder()
+      .medicoId(medico.getId())
+      .pacienteId(paciente.getId())
+      .medicamentos(Arrays.asList(medicamento1))
+      .build();
+
+    Prescricao prescricao2 = Prescricao.builder()
+      .medicoId(medico.getId())
+      .pacienteId(paciente.getId())
+      .medicamentos(Arrays.asList(medicamento2))
+      .build();
+
+    prescricaoRepository.save(prescricao1);
+    prescricaoRepository.save(prescricao2);
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("prescricao/paciente/" + paciente.getId())
+    .then()
+      .body("", Matchers.hasSize(2))
+      .statusCode(HttpStatus.OK.value());
   }
 }
