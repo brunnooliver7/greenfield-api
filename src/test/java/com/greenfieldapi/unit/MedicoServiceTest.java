@@ -6,17 +6,19 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.MedicoNaoEncontradoException;
 import com.greenfieldapi.domain.model.Medico;
 import com.greenfieldapi.domain.repository.MedicoRepository;
 import com.greenfieldapi.domain.service.MedicoService;
 
 public class MedicoServiceTest extends UnitTest {
-  
+
   @InjectMocks
   private MedicoService medicoService;
 
@@ -46,5 +48,18 @@ public class MedicoServiceTest extends UnitTest {
 
     assertEquals(3, medicos.size());
   }
-  
+
+  @Test
+  public void deve_obter_um_medico() throws MedicoNaoEncontradoException {
+    Medico medico = criarMedico("91354036085", "a@email", "001");
+    medico.setId(1L);
+
+    when(medicoRepository.findById(medico.getId()))
+      .thenReturn(Optional.ofNullable(medico));
+
+    medico = medicoService.findById(medico.getId());
+
+    assertNotNull(medico);
+  }
+
 }
