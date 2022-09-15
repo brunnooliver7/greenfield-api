@@ -157,4 +157,17 @@ public class PrescricaoApiTest extends ApiTest {
       .statusCode(HttpStatus.OK.value());
   }
 
+  @Test
+  public void deve_deletar_uma_prescricao() {
+
+    Prescricao prescricao = prescricaoRepository.save(criarPrescricao());
+    
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .delete("/prescricao/" + prescricao.getId())
+    .then()
+      .statusCode(HttpStatus.NO_CONTENT.value());
+  }
+
 }
