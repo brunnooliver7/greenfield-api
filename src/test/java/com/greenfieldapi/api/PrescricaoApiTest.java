@@ -143,4 +143,18 @@ public class PrescricaoApiTest extends ApiTest {
       .body("", Matchers.hasSize(2))
       .statusCode(HttpStatus.OK.value());
   }
+
+  @Test
+  public void deve_obter_uma_prescricao() {
+
+    Prescricao prescricao = prescricaoRepository.save(criarPrescricao());
+    
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/prescricao/" + prescricao.getId())
+    .then()
+      .statusCode(HttpStatus.OK.value());
+  }
+
 }
