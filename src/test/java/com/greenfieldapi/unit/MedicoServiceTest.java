@@ -6,17 +6,14 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.greenfieldapi.domain.model.Medico;
 import com.greenfieldapi.domain.repository.MedicoRepository;
 import com.greenfieldapi.domain.service.MedicoService;
 
-@ExtendWith(MockitoExtension.class)
-public class MedicoServiceTest {
+public class MedicoServiceTest extends UnitTest {
   
   @InjectMocks
   private MedicoService medicoService;
@@ -26,17 +23,7 @@ public class MedicoServiceTest {
 
   @Test
   public void deve_criar_um_medico() {
-    Medico medico =  Medico.builder()
-      .cpf("91354036085")
-      .email("a@email")
-      .nome("nome")
-      .dtNascimento(LocalDate.of(2000, 1, 1))
-      .crm("001")
-      .estadoRegistroCrm("estadoRegistroCrm")
-      .estado("ES")
-      .sexo("F")
-      .senha("senha")
-      .build();
+    Medico medico = criarMedico("91354036085", "a@email", "001");
 
     when(medicoRepository.save(medico)).thenReturn(medico);
 
