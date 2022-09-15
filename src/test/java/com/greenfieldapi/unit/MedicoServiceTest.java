@@ -1,9 +1,11 @@
 package com.greenfieldapi.unit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,4 +34,17 @@ public class MedicoServiceTest extends UnitTest {
     assertNotNull(medico);
   }
 
+  @Test
+  public void deve_obter_todos_os_medicos() {
+    Medico medico1 = criarMedico("91354036085", "a@email", "001");
+    Medico medico2 = criarMedico("58896718040", "b@email", "002");
+    Medico medico3 = criarMedico("44981367058", "c@email", "003");
+
+    when(medicoRepository.findAll()).thenReturn(Arrays.asList(medico1, medico2, medico3));
+
+    List<Medico> medicos = medicoService.findAll();
+
+    assertEquals(3, medicos.size());
+  }
+  
 }
