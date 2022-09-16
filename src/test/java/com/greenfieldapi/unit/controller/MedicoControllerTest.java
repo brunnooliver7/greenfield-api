@@ -8,6 +8,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -74,6 +76,25 @@ public class MedicoControllerTest extends ControllerUnitTest {
 
     verify(medicoService, times(1)).findById(anyLong());
     verify(medicoService, times(1)).save(any(Medico.class));
+  }
+
+  @Test
+  public void deve_obter_todos_os_medicos() {
+
+    Medico medico1 = criarMedico("91354036085", "a@email", "001");    
+    Medico medico2 = criarMedico("58896718040", "b@email", "002");
+
+    when(medicoService.findAll()).thenReturn(Arrays.asList(medico1, medico2));
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/medico")
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .assertThat().body("size()", Matchers.is(2));
+
+    verify(medicoService, times(1)).findAll();
   }
 
   @Test
