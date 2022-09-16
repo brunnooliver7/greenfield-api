@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -82,6 +83,19 @@ public class PrescricaoServiceTest {
     assertNotNull(prescricoes);
     assertEquals(prescricoes.size(), 2);
     verify(prescricaoRepository, times(1)).findByPacienteId(paciente.getId());
+  }
+
+  @Test
+  public void deve_obter_uma_prescricao() {
+
+    Prescricao prescricao = criarPrescricao(1L, 1L);
+
+    when(prescricaoRepository.findById(1L)).thenReturn(Optional.ofNullable(prescricao));
+
+    prescricao = prescricaoService.findById(1L);
+
+    assertNotNull(prescricao);
+    verify(prescricaoRepository, times(1)).findById(1L);
   }
 
 }
