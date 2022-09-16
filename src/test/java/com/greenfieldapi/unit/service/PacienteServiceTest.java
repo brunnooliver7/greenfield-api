@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +21,7 @@ import com.greenfieldapi.domain.service.PacienteService;
 
 @ExtendWith(MockitoExtension.class)
 public class PacienteServiceTest {
-  
+
   @InjectMocks
   private PacienteService pacienteService;
 
@@ -49,6 +50,19 @@ public class PacienteServiceTest {
     List<Paciente> pacientes = pacienteService.findAll();
 
     assertEquals(3, pacientes.size());
+  }
+
+  @Test
+  public void deve_obter_um_paciente() {
+    Paciente paciente = criarPaciente("91354036085");
+    paciente.setId(1L);
+
+    when(pacienteRepository.findById(paciente.getId()))
+        .thenReturn(Optional.ofNullable(paciente));
+
+    paciente = pacienteService.findById(paciente.getId());
+
+    assertNotNull(paciente);
   }
 
 }
