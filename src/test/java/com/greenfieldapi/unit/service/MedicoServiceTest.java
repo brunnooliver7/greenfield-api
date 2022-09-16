@@ -1,5 +1,6 @@
 package com.greenfieldapi.unit.service;
 
+import static com.greenfieldapi.TestUtils.criarMedico;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -12,16 +13,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.MedicoNaoEncontradoException;
 import com.greenfieldapi.domain.model.Medico;
 import com.greenfieldapi.domain.repository.MedicoRepository;
 import com.greenfieldapi.domain.service.MedicoService;
-import com.greenfieldapi.unit.UnitTest;
 
-public class MedicoServiceTest extends UnitTest {
+@ExtendWith(MockitoExtension.class)
+public class MedicoServiceTest {
 
   @InjectMocks
   private MedicoService medicoService;
