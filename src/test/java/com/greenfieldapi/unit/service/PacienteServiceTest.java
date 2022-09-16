@@ -3,6 +3,9 @@ package com.greenfieldapi.unit.service;
 import static com.greenfieldapi.TestUtils.criarPaciente;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -63,6 +66,12 @@ public class PacienteServiceTest {
     paciente = pacienteService.findById(paciente.getId());
 
     assertNotNull(paciente);
+  }
+
+  @Test
+  public void deve_deletar_um_paciente() {
+    pacienteService.delete(1L);
+    verify(pacienteRepository, times(1)).deleteById(anyLong());
   }
 
 }
