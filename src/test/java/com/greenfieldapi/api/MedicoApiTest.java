@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import com.greenfieldapi.TestUtils;
 import com.greenfieldapi.api.dto.MedicoDTO;
 import com.greenfieldapi.api.mapper.MedicoMapper;
 import com.greenfieldapi.domain.model.Medico;
@@ -24,7 +25,7 @@ public class MedicoApiTest extends ApiTest {
   @Test
   public void deve_criar_um_medico() {
 
-    Medico medico = criarMedico("91354036085", "a@email.com", "001");
+    Medico medico = TestUtils.criarMedico("91354036085", "a@email.com", "001");
     MedicoDTO dto = MedicoMapper.INSTANCE.toDTO(medico);
 
     given()
@@ -41,7 +42,7 @@ public class MedicoApiTest extends ApiTest {
   public void deve_alterar_um_medico() {
 
     Medico medico = medicoRepository.save(
-      criarMedico("91354036085", "a@email", "001")
+      TestUtils.criarMedico("91354036085", "a@email", "001")
     );
 
     MedicoDTO dto = MedicoMapper.INSTANCE.toDTO(medico);
@@ -61,9 +62,9 @@ public class MedicoApiTest extends ApiTest {
   @Test
   public void deve_obter_todos_os_medicos() {
 
-    medicoRepository.save(criarMedico("91354036085", "a@email", "001"));
-    medicoRepository.save(criarMedico("58896718040", "b@email", "002"));
-    medicoRepository.save(criarMedico("44981367058", "c@email", "003"));
+    medicoRepository.save(TestUtils.criarMedico("91354036085", "a@email", "001"));
+    medicoRepository.save(TestUtils.criarMedico("58896718040", "b@email", "002"));
+    medicoRepository.save(TestUtils.criarMedico("44981367058", "c@email", "003"));
 
     Response response = 
       given()
@@ -84,7 +85,7 @@ public class MedicoApiTest extends ApiTest {
   public void deve_obter_um_medico() {
 
     Medico medico = medicoRepository.save(
-      criarMedico("91354036085", "a@email", "001")
+      TestUtils.criarMedico("91354036085", "a@email", "001")
     );
 
     given()
@@ -99,7 +100,7 @@ public class MedicoApiTest extends ApiTest {
   public void deve_deletar_um_medico() {
 
     Medico medico = medicoRepository.save(
-      criarMedico("91354036085", "a@email", "001")
+      TestUtils.criarMedico("91354036085", "a@email", "001")
     );
 
     given()
