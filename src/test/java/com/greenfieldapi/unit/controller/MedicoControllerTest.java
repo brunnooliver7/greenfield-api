@@ -2,6 +2,7 @@ package com.greenfieldapi.unit.controller;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -57,6 +58,34 @@ public class MedicoControllerTest extends ControllerUnitTest {
       .body("cpf", Matchers.notNullValue());
 
     verify(medicoService, times(1)).save(any(Medico.class));
+  }
+
+  @Test
+  public void deve_obter_um_medico() throws Exception {
+    Medico medico = Medico.builder()
+      .id(1L)
+      .cpf("91354036085")
+      .email("a@email")
+      .nome("nome")
+      .dtNascimento(LocalDate.of(2000, 1, 1))
+      .crm("001")
+      .estadoRegistroCrm("estadoRegistroCrm")
+      .estado("ES")
+      .sexo("F")
+      .senha("senha")
+      .build();
+
+    when(medicoService.findById(anyLong())).thenReturn(medico);
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/medico/{id}", medico.getId())
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("id", Matchers.notNullValue());
+
+    verify(medicoService, times(1)).findById(medico.getId());
   }
 
 }
