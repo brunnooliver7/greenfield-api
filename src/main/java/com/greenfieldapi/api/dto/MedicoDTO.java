@@ -1,6 +1,6 @@
 package com.greenfieldapi.api.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -33,7 +33,7 @@ public class MedicoDTO {
   
   @NotNull
   @PastOrPresent
-  private Date dtNascimento;
+  private LocalDate dtNascimento;
   
   @NotBlank
   private String crm;

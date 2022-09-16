@@ -48,6 +48,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Spring Data JPA -->
@@ -109,6 +115,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Spring MockMvc -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Zonky Embedded Database -->
 		<dependency>
 			<groupId>io.zonky.test</groupId>
@@ -122,7 +135,7 @@
 	<build>
 		<plugins>
 
-			<!-- SpringBoot-Maven -->
+			<!-- SpringBoot Maven -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
