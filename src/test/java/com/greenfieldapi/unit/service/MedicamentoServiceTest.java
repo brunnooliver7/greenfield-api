@@ -39,4 +39,17 @@ public class MedicamentoServiceTest {
     assertNotNull(medicamento);
   }
 
+  @Test
+  public void deve_obter_um_medicamento() {
+    Medicamento medicamento = criarMedicamento();
+    medicamento.setId(1L);
+
+    when(medicamentoRepository.findById(medicamento.getId()))
+      .thenReturn(Optional.ofNullable(medicamento));
+
+      medicamento = medicamentoService.findById(medicamento.getId());
+
+    assertNotNull(medicamento);
+  }
+
 }
