@@ -52,4 +52,10 @@ public class MedicamentoServiceTest {
     assertNotNull(medicamento);
   }
 
+  @Test
+  public void deve_deletar_um_medicamento() {
+    medicamentoService.delete(1L);
+    verify(medicamentoRepository, times(1)).deleteById(anyLong());
+  }
+
 }
