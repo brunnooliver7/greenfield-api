@@ -49,6 +49,34 @@ public class MedicoControllerTest extends ControllerUnitTest {
   }
 
   @Test
+  public void deve_alterar_um_medico() {
+
+    Medico medicoSalvo = criarMedico("91354036085", "a@email", "001");
+    medicoSalvo.setId(1L);
+    
+    Medico medicoAtualizado = criarMedico("91354036085", "a@email", "002");
+    medicoAtualizado.setId(1L);
+
+    MedicoDTO dto = MedicoMapper.INSTANCE.toDTO(medicoAtualizado);
+
+    when(medicoService.findById(anyLong())).thenReturn(medicoSalvo);
+    when(medicoService.save(any(Medico.class))).thenReturn(medicoAtualizado);
+
+    given()
+      .body(dto)
+      .contentType(ContentType.JSON)
+      .accept(ContentType.JSON)
+    .when()
+      .put("/medico")
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("crm", Matchers.equalTo("002"));
+
+    verify(medicoService, times(1)).findById(anyLong());
+    verify(medicoService, times(1)).save(any(Medico.class));
+  }
+
+  @Test
   public void deve_obter_um_medico() throws Exception {
     Medico medico = criarMedico("91354036085", "a@email", "001");
     medico.setId(1L);
