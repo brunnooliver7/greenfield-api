@@ -1,4 +1,4 @@
-package com.greenfieldapi.unit;
+package com.greenfieldapi.unit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,6 +19,7 @@ import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.MedicoNaoEncontr
 import com.greenfieldapi.domain.model.Medico;
 import com.greenfieldapi.domain.repository.MedicoRepository;
 import com.greenfieldapi.domain.service.MedicoService;
+import com.greenfieldapi.unit.UnitTest;
 
 public class MedicoServiceTest extends UnitTest {
 
