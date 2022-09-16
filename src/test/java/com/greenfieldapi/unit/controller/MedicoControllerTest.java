@@ -1,13 +1,12 @@
 package com.greenfieldapi.unit.controller;
 
+import static com.greenfieldapi.TestUtils.criarMedico;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -31,18 +30,7 @@ public class MedicoControllerTest extends ControllerUnitTest {
 
   @Test
   public void deve_criar_um_medico() throws Exception {
-    Medico medico = Medico.builder()
-      .cpf("91354036085")
-      .email("a@email")
-      .nome("nome")
-      .dtNascimento(LocalDate.of(2000, 1, 1))
-      .crm("001")
-      .estadoRegistroCrm("estadoRegistroCrm")
-      .estado("ES")
-      .sexo("F")
-      .senha("senha")
-      .build();
-    
+    Medico medico = criarMedico("91354036085", "a@email", "001");
     MedicoDTO dto = MedicoMapper.INSTANCE.toDTO(medico);
 
     when(medicoService.save(any(Medico.class))).thenReturn(medico);
@@ -62,18 +50,8 @@ public class MedicoControllerTest extends ControllerUnitTest {
 
   @Test
   public void deve_obter_um_medico() throws Exception {
-    Medico medico = Medico.builder()
-      .id(1L)
-      .cpf("91354036085")
-      .email("a@email")
-      .nome("nome")
-      .dtNascimento(LocalDate.of(2000, 1, 1))
-      .crm("001")
-      .estadoRegistroCrm("estadoRegistroCrm")
-      .estado("ES")
-      .sexo("F")
-      .senha("senha")
-      .build();
+    Medico medico = criarMedico("91354036085", "a@email", "001");
+    medico.setId(1L);
 
     when(medicoService.findById(anyLong())).thenReturn(medico);
 
