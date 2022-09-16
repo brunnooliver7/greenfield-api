@@ -42,15 +42,11 @@ public class TestUtils {
       .build();
   }
 
-  public static Prescricao criarPrescricao() {
-    Medico medico = criarMedico("91354036085", "a@email", "001");
-    Paciente paciente = criarPaciente("91354036085");
-    Medicamento medicamento = criarMedicamento();
-
+  public static Prescricao criarPrescricao(Long medicoId, Long pacienteId) {    
     return Prescricao.builder()
-      .medicoId(medico.getId())
-      .pacienteId(paciente.getId())
-      .medicamentos(Arrays.asList(medicamento))
+      .medicoId(medicoId)
+      .pacienteId(pacienteId)
+      .medicamentos(Arrays.asList(criarMedicamento()))
       .build();
   }
 
