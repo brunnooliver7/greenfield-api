@@ -5,6 +5,7 @@ import static com.greenfieldapi.TestUtils.criarPaciente;
 import static com.greenfieldapi.TestUtils.criarPrescricao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -96,6 +97,12 @@ public class PrescricaoServiceTest {
 
     assertNotNull(prescricao);
     verify(prescricaoRepository, times(1)).findById(1L);
+  }
+
+  @Test
+  public void deve_deletar_uma_prescricao() {
+    prescricaoService.delete(1L);
+    verify(prescricaoRepository, times(1)).deleteById(anyLong());
   }
 
 }
