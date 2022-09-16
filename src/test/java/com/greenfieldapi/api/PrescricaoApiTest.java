@@ -1,5 +1,8 @@
 package com.greenfieldapi.api;
 
+import static com.greenfieldapi.TestUtils.criarMedicamento;
+import static com.greenfieldapi.TestUtils.criarMedico;
+import static com.greenfieldapi.TestUtils.criarPaciente;
 import static com.greenfieldapi.TestUtils.criarPrescricao;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -11,7 +14,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import com.greenfieldapi.TestUtils;
 import com.greenfieldapi.api.dto.PrescricaoDTO;
 import com.greenfieldapi.api.mapper.PrescricaoMapper;
 import com.greenfieldapi.domain.model.Medicamento;
@@ -39,11 +41,11 @@ public class PrescricaoApiTest extends ApiTest {
   public void deve_criar_uma_prescricao() {
     
     Medico medico = medicoRepository.save(
-      TestUtils.criarMedico("58896718040", "a@email", "001")
+      criarMedico("58896718040", "a@email", "001")
     );
 
     Paciente paciente = pacienteRepository.save(
-      TestUtils.criarPaciente("91354036085")
+      criarPaciente("91354036085")
     );
 
     Prescricao prescricao = criarPrescricao(medico.getId(), paciente.getId());    
@@ -63,15 +65,15 @@ public class PrescricaoApiTest extends ApiTest {
   public void deve_alterar_uma_prescricao() {
     
     Medico medico1 = medicoRepository.save(
-      TestUtils.criarMedico("91354036085", "a@email", "001")
+      criarMedico("91354036085", "a@email", "001")
     );
 
     Medico medico2 = medicoRepository.save(
-      TestUtils.criarMedico("58896718040", "b@email", "002")
+      criarMedico("58896718040", "b@email", "002")
     );
 
     Paciente paciente = pacienteRepository.save(
-      TestUtils.criarPaciente("91354036085")
+      criarPaciente("91354036085")
     );
 
     Prescricao prescricao = prescricaoRepository.save(
@@ -94,15 +96,15 @@ public class PrescricaoApiTest extends ApiTest {
 
   @Test
   public void deve_obter_todas_as_prescricoes_de_um_medico() {
-    Medico medico = TestUtils.criarMedico("58896718040", "a@email", "001");
+    Medico medico = criarMedico("58896718040", "a@email", "001");
     medico = medicoRepository.save(medico);
 
-    Paciente paciente = TestUtils.criarPaciente("44981367058");
+    Paciente paciente = criarPaciente("44981367058");
     paciente = pacienteRepository.save(paciente);
 
-    Medicamento medicamento1 = TestUtils.criarMedicamento();
+    Medicamento medicamento1 = criarMedicamento();
 
-    Medicamento medicamento2 = TestUtils.criarMedicamento();
+    Medicamento medicamento2 = criarMedicamento();
 
     Prescricao prescricao1 = Prescricao.builder()
       .medicoId(medico.getId())
@@ -130,15 +132,15 @@ public class PrescricaoApiTest extends ApiTest {
 
   @Test
   public void deve_obter_todas_as_prescricoes_de_um_paciente() {
-    Medico medico = TestUtils.criarMedico("58896718040", "a@email", "001");
+    Medico medico = criarMedico("58896718040", "a@email", "001");
     medico = medicoRepository.save(medico);
 
-    Paciente paciente = TestUtils.criarPaciente("44981367058");
+    Paciente paciente = criarPaciente("44981367058");
     paciente = pacienteRepository.save(paciente);
 
-    Medicamento medicamento1 = TestUtils.criarMedicamento();
+    Medicamento medicamento1 = criarMedicamento();
 
-    Medicamento medicamento2 = TestUtils.criarMedicamento();
+    Medicamento medicamento2 = criarMedicamento();
 
     Prescricao prescricao1 = Prescricao.builder()
       .medicoId(medico.getId())
@@ -168,11 +170,11 @@ public class PrescricaoApiTest extends ApiTest {
   public void deve_obter_uma_prescricao() {
 
     Medico medico = medicoRepository.save(
-      TestUtils.criarMedico("58896718040", "a@email", "001")
+      criarMedico("58896718040", "a@email", "001")
     );
 
     Paciente paciente = pacienteRepository.save(
-      TestUtils.criarPaciente("91354036085")
+      criarPaciente("91354036085")
     );
 
     Prescricao prescricao = prescricaoRepository.save(
@@ -191,11 +193,11 @@ public class PrescricaoApiTest extends ApiTest {
   public void deve_deletar_uma_prescricao() {
 
     Medico medico = medicoRepository.save(
-      TestUtils.criarMedico("58896718040", "a@email", "001")
+      criarMedico("58896718040", "a@email", "001")
     );
 
     Paciente paciente = pacienteRepository.save(
-      TestUtils.criarPaciente("91354036085")
+      criarPaciente("91354036085")
     );
 
     Prescricao prescricao = prescricaoRepository.save(

@@ -1,5 +1,6 @@
 package com.greenfieldapi.api;
 
+import static com.greenfieldapi.TestUtils.criarMedicamento;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -7,7 +8,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import com.greenfieldapi.TestUtils;
 import com.greenfieldapi.api.dto.MedicamentoDTO;
 import com.greenfieldapi.api.mapper.MedicamentoMapper;
 import com.greenfieldapi.domain.model.Medicamento;
@@ -23,7 +23,7 @@ public class MedicamentoApiTest extends ApiTest {
   @Test
   public void deve_criar_um_medicamento() {
     
-    Medicamento medicamento = TestUtils.criarMedicamento();
+    Medicamento medicamento = criarMedicamento();
     MedicamentoDTO dto = MedicamentoMapper.INSTANCE.toDTO(medicamento);
 
     given()
@@ -40,7 +40,7 @@ public class MedicamentoApiTest extends ApiTest {
   public void deve_alterar_um_medicamento() {
 
     Medicamento medicamento = medicamentoRepository.save(
-      TestUtils.criarMedicamento()
+      criarMedicamento()
     );
 
     MedicamentoDTO dto = MedicamentoMapper.INSTANCE.toDTO(medicamento);
@@ -61,7 +61,7 @@ public class MedicamentoApiTest extends ApiTest {
   public void deve_obter_um_medicamento() {
 
     Medicamento medicamento = medicamentoRepository.save(
-      TestUtils.criarMedicamento()
+      criarMedicamento()
     );
 
     given()
@@ -76,7 +76,7 @@ public class MedicamentoApiTest extends ApiTest {
   public void deve_deletar_um_medicamento() {
 
     Medicamento medicamento = medicamentoRepository.save(
-      TestUtils.criarMedicamento()
+      criarMedicamento()
     );
 
     given()

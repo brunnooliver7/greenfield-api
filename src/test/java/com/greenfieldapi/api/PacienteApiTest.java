@@ -1,5 +1,6 @@
 package com.greenfieldapi.api;
 
+import static com.greenfieldapi.TestUtils.criarPaciente;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
@@ -8,7 +9,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import com.greenfieldapi.TestUtils;
 import com.greenfieldapi.api.dto.PacienteDTO;
 import com.greenfieldapi.api.mapper.PacienteMapper;
 import com.greenfieldapi.domain.model.Paciente;
@@ -25,7 +25,7 @@ public class PacienteApiTest extends ApiTest {
   @Test
   public void deve_criar_um_paciente() {
     
-    Paciente paciente = TestUtils.criarPaciente("91354036085");
+    Paciente paciente = criarPaciente("91354036085");
     PacienteDTO dto = PacienteMapper.INSTANCE.toDTO(paciente);
 
     given()
@@ -42,7 +42,7 @@ public class PacienteApiTest extends ApiTest {
   public void deve_alterar_um_paciente() {
 
     Paciente paciente = pacienteRepository.save(
-      TestUtils.criarPaciente("91354036085")
+      criarPaciente("91354036085")
     );
 
     PacienteDTO dto = PacienteMapper.INSTANCE.toDTO(paciente);
@@ -62,9 +62,9 @@ public class PacienteApiTest extends ApiTest {
   @Test
   public void deve_obter_todos_os_pacientes() {
 
-    pacienteRepository.save(TestUtils.criarPaciente("91354036085"));
-    pacienteRepository.save(TestUtils.criarPaciente("58896718040"));
-    pacienteRepository.save(TestUtils.criarPaciente("44981367058"));
+    pacienteRepository.save(criarPaciente("91354036085"));
+    pacienteRepository.save(criarPaciente("58896718040"));
+    pacienteRepository.save(criarPaciente("44981367058"));
 
     Response response = 
       given()
@@ -85,7 +85,7 @@ public class PacienteApiTest extends ApiTest {
   public void deve_obter_um_paciente() {
 
     Paciente paciente = pacienteRepository.save(
-      TestUtils.criarPaciente("91354036085")
+      criarPaciente("91354036085")
     );
 
     given()
@@ -100,7 +100,7 @@ public class PacienteApiTest extends ApiTest {
   public void deve_deletar_um_paciente() {
 
     Paciente paciente = pacienteRepository.save(
-      TestUtils.criarPaciente("91354036085")
+      criarPaciente("91354036085")
     );
 
     given()
