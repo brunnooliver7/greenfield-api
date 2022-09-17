@@ -8,6 +8,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -76,6 +78,25 @@ public class PacienteControllerTest extends ControllerUnitTest {
 
     verify(pacienteService, times(1)).findById(anyLong());
     verify(pacienteService, times(1)).save(any(Paciente.class));
+  }
+
+  @Test
+  public void deve_obter_todos_os_pacientes() {
+
+    Paciente paciente1 = criarPaciente("91354036085");
+    Paciente paciente2 = criarPaciente("58896718040");
+
+    when(pacienteService.findAll()).thenReturn(Arrays.asList(paciente1, paciente2));
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/paciente")
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .assertThat().body("size()", Matchers.is(2));
+
+    verify(pacienteService, times(1)).findAll();
   }
 
 }
