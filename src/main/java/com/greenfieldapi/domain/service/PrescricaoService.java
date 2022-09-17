@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.PrescricaoNaoEncontradaException;
 import com.greenfieldapi.domain.model.Prescricao;
@@ -29,10 +30,12 @@ public class PrescricaoService {
     return prescricaoRepository.findById(id).orElseThrow(() -> new PrescricaoNaoEncontradaException(id));
   }
 
+  @Transactional
   public Prescricao save(Prescricao prescricao) {
     return prescricaoRepository.save(prescricao);
   }
 
+  @Transactional
   public void delete(Long id) {
     try {
       prescricaoRepository.deleteById(id);

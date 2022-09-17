@@ -3,6 +3,7 @@ package com.greenfieldapi.domain.service;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.greenfieldapi.domain.exception.EntidadeEmUso.MedicamentoEmUsoException;
 import com.greenfieldapi.domain.exception.EntidadeNaoEncontrada.MedicamentoNaoEncontradoException;
@@ -23,10 +24,12 @@ public class MedicamentoService {
     );
   }
 
+  @Transactional
   public Medicamento save(Medicamento medicamento) {
     return medicamentoRepository.save(medicamento);
   }
 
+  @Transactional
   public void delete(Long id) {
     try {
       medicamentoRepository.deleteById(id);
