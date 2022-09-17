@@ -2,6 +2,7 @@ package com.greenfieldapi.api.dto;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -18,5 +19,6 @@ public class PrescricaoDTO {
   @NotNull
   private Long pacienteId;
   
+  @Valid
   private List<MedicamentoDTO> medicamentos;
 }
