@@ -99,4 +99,22 @@ public class PacienteControllerTest extends ControllerUnitTest {
     verify(pacienteService, times(1)).findAll();
   }
 
+  @Test
+  public void deve_obter_um_paciente() throws Exception {
+    Paciente paciente = criarPaciente("91354036085");
+    paciente.setId(1L);
+
+    when(pacienteService.findById(anyLong())).thenReturn(paciente);
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/paciente/{id}", paciente.getId())
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("id", Matchers.notNullValue());
+
+    verify(pacienteService, times(1)).findById(paciente.getId());
+  }
+
 }
