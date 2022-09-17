@@ -48,4 +48,33 @@ public class MedicamentoControllerTest extends ControllerUnitTest {
     verify(medicamentoService, times(1)).save(any(Medicamento.class));
   }
 
+  @Test
+  public void deve_alterar_um_medicamento() {
+
+    Medicamento medicamentoSalvo = criarMedicamento();
+    medicamentoSalvo.setId(1L);
+    
+    Medicamento medicamentoAtualizado = new Medicamento();
+    BeanUtils.copyProperties(medicamentoSalvo, medicamentoAtualizado);
+    medicamentoAtualizado.setDescricao("descricao edit");
+
+    MedicamentoDTO dto = MedicamentoMapper.INSTANCE.toDTO(medicamentoAtualizado);
+
+    when(medicamentoService.findById(anyLong())).thenReturn(medicamentoSalvo);
+    when(medicamentoService.save(any(Medicamento.class))).thenReturn(medicamentoAtualizado);
+
+    given()
+      .body(dto)
+      .contentType(ContentType.JSON)
+      .accept(ContentType.JSON)
+    .when()
+      .put("/medicamento")
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("descricao", Matchers.equalTo("descricao edit"));
+
+    verify(medicamentoService, times(1)).findById(anyLong());
+    verify(medicamentoService, times(1)).save(any(Medicamento.class));
+  }
+
 }
