@@ -117,4 +117,16 @@ public class PacienteControllerTest extends ControllerUnitTest {
     verify(pacienteService, times(1)).findById(paciente.getId());
   }
 
+  @Test
+  public void deve_deletar_um_paciente() {
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .delete("/paciente/{id}", 1L)
+    .then()
+      .statusCode(HttpStatus.NO_CONTENT.value());
+
+    verify(pacienteService, times(1)).delete(1L);
+  }
+
 }
