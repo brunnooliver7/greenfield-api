@@ -115,4 +115,15 @@ public class MedicoControllerTest extends ControllerUnitTest {
     verify(medicoService, times(1)).findById(medico.getId());
   }
 
+  @Test
+  public void deve_deletar_um_medico() {
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .delete("/medico/{id}", 1L)
+    .then()
+      .statusCode(HttpStatus.NO_CONTENT.value());
+
+    verify(medicoService, times(1)).delete(1L);
+  }
 }
