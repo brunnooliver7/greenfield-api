@@ -48,4 +48,32 @@ public class PrescricaoControllerTest extends ControllerUnitTest {
     verify(prescricaoService, times(1)).save(any(Prescricao.class));
   }
 
+  @Test
+  public void deve_alterar_um_prescricao() {
+
+    Prescricao prescricaoSalvo = criarPrescricao(1L, 1L);
+    prescricaoSalvo.setId(1L);
+    
+    Prescricao prescricaoAtualizado = new Prescricao();
+    BeanUtils.copyProperties(prescricaoSalvo, prescricaoAtualizado);
+    prescricaoAtualizado.setMedicoId(2L);
+
+    PrescricaoDTO dto = PrescricaoMapper.INSTANCE.toDTO(prescricaoAtualizado);
+
+    when(prescricaoService.findById(anyLong())).thenReturn(prescricaoSalvo);
+    when(prescricaoService.save(any(Prescricao.class))).thenReturn(prescricaoAtualizado);
+
+    given()
+      .body(dto)
+      .contentType(ContentType.JSON)
+      .accept(ContentType.JSON)
+    .when()
+      .put("/prescricao")
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("medicoId", Matchers.equalTo(2));
+
+    verify(prescricaoService, times(1)).save(any(Prescricao.class));
+  }
+
 }
