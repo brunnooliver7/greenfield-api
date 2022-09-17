@@ -1,7 +1,6 @@
 package com.greenfieldapi.integration;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -16,8 +15,7 @@ import io.zonky.test.db.AutoConfigureEmbeddedDatabase.RefreshMode;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureEmbeddedDatabase(refresh = RefreshMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
-@Ignore
-public class IntegrationTest {
+public abstract class IntegrationTest {
 
   @LocalServerPort
   private int port;
