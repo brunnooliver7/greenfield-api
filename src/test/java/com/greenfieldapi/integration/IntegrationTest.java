@@ -1,4 +1,4 @@
-package com.greenfieldapi.api;
+package com.greenfieldapi.integration;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -17,7 +17,7 @@ import io.zonky.test.db.AutoConfigureEmbeddedDatabase.RefreshMode;
 @AutoConfigureEmbeddedDatabase(refresh = RefreshMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
 @Ignore
-public class ApiTest {
+public class IntegrationTest {
 
   @LocalServerPort
   private int port;

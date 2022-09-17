@@ -1,4 +1,4 @@
-package com.greenfieldapi.api;
+package com.greenfieldapi.integration;
 
 import static com.greenfieldapi.TestUtils.criarPaciente;
 import static io.restassured.RestAssured.given;
@@ -17,7 +17,7 @@ import com.greenfieldapi.domain.repository.PacienteRepository;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-public class PacienteApiTest extends ApiTest {
+public class PacienteIntegrationTest extends IntegrationTest {
   
   @Autowired
   private PacienteRepository pacienteRepository;

@@ -1,4 +1,4 @@
-package com.greenfieldapi.api;
+package com.greenfieldapi.integration;
 
 import static com.greenfieldapi.TestUtils.criarMedico;
 import static io.restassured.RestAssured.given;
@@ -17,7 +17,7 @@ import com.greenfieldapi.domain.repository.MedicoRepository;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-public class MedicoApiTest extends ApiTest {
+public class MedicoIntegrationTest extends IntegrationTest {
 
   @Autowired
   private MedicoRepository medicoRepository;
