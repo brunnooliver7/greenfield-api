@@ -3,12 +3,14 @@ package com.greenfieldapi.unit.controller;
 import static com.greenfieldapi.TestUtils.criarPaciente;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -44,6 +46,35 @@ public class PacienteControllerTest extends ControllerUnitTest {
       .statusCode(HttpStatus.CREATED.value())
       .body("cpf", Matchers.notNullValue());
 
+    verify(pacienteService, times(1)).save(any(Paciente.class));
+  }
+
+  @Test
+  public void deve_alterar_um_paciente() {
+
+    Paciente pacienteSalvo = criarPaciente("91354036085");
+    pacienteSalvo.setId(1L);
+    
+    Paciente pacienteAtualizado = new Paciente();
+    BeanUtils.copyProperties(pacienteSalvo, pacienteAtualizado);
+    pacienteAtualizado.setNome("novo nome");
+
+    PacienteDTO dto = PacienteMapper.INSTANCE.toDTO(pacienteAtualizado);
+
+    when(pacienteService.findById(anyLong())).thenReturn(pacienteSalvo);
+    when(pacienteService.save(any(Paciente.class))).thenReturn(pacienteAtualizado);
+
+    given()
+      .body(dto)
+      .contentType(ContentType.JSON)
+      .accept(ContentType.JSON)
+    .when()
+      .put("/paciente")
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("nome", Matchers.equalTo("novo nome"));
+
+    verify(pacienteService, times(1)).findById(anyLong());
     verify(pacienteService, times(1)).save(any(Paciente.class));
   }
 

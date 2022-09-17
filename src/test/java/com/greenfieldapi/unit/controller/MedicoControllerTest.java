@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -56,8 +57,9 @@ public class MedicoControllerTest extends ControllerUnitTest {
     Medico medicoSalvo = criarMedico("91354036085", "a@email", "001");
     medicoSalvo.setId(1L);
     
-    Medico medicoAtualizado = criarMedico("91354036085", "a@email", "002");
-    medicoAtualizado.setId(1L);
+    Medico medicoAtualizado = new Medico();;
+    BeanUtils.copyProperties(medicoSalvo, medicoAtualizado);
+    medicoAtualizado.setCrm("002");
 
     MedicoDTO dto = MedicoMapper.INSTANCE.toDTO(medicoAtualizado);
 
