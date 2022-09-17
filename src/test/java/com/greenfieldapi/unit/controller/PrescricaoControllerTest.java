@@ -76,4 +76,22 @@ public class PrescricaoControllerTest extends ControllerUnitTest {
     verify(prescricaoService, times(1)).save(any(Prescricao.class));
   }
 
+  @Test
+  public void deve_obter_um_prescricao() throws Exception {
+    Prescricao prescricao = criarPrescricao(1L, 1L);
+    prescricao.setId(1L);
+
+    when(prescricaoService.findById(anyLong())).thenReturn(prescricao);
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/prescricao/{id}", prescricao.getId())
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("id", Matchers.notNullValue());
+
+    verify(prescricaoService, times(1)).findById(prescricao.getId());
+  }
+
 }
