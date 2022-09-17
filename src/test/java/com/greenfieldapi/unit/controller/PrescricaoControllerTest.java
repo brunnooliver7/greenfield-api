@@ -99,6 +99,26 @@ public class PrescricaoControllerTest extends ControllerUnitTest {
   }
 
   @Test
+  public void deve_obter_todas_as_prescricoes_de_um_paciente() {
+    Long pacienteId = 1L;
+    Prescricao prescricao1 = criarPrescricao(1L, pacienteId);
+    Prescricao prescricao2 = criarPrescricao(2L, pacienteId);
+
+    when(prescricaoService.findByPacienteId(pacienteId))
+      .thenReturn(Arrays.asList(prescricao1,prescricao2));
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/prescricao/paciente/{pacienteId}", pacienteId)
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("size()", Matchers.equalTo(2));
+
+    verify(prescricaoService, times(1)).findByPacienteId(pacienteId);
+  }
+
+  @Test
   public void deve_obter_um_prescricao() throws Exception {
     Prescricao prescricao = criarPrescricao(1L, 1L);
     prescricao.setId(1L);
