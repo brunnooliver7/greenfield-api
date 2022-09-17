@@ -95,4 +95,16 @@ public class MedicamentoControllerTest extends ControllerUnitTest {
     verify(medicamentoService, times(1)).findById(medicamento.getId());
   }
 
+  @Test
+  public void deve_deletar_um_medicamento() {
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .delete("/medicamento/{id}", 1L)
+    .then()
+      .statusCode(HttpStatus.NO_CONTENT.value());
+
+    verify(medicamentoService, times(1)).delete(1L);
+  }
+
 }
