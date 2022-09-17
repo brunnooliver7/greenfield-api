@@ -94,4 +94,16 @@ public class PrescricaoControllerTest extends ControllerUnitTest {
     verify(prescricaoService, times(1)).findById(prescricao.getId());
   }
 
+  @Test
+  public void deve_deletar_um_prescricao() {
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .delete("/prescricao/{id}", 1L)
+    .then()
+      .statusCode(HttpStatus.NO_CONTENT.value());
+
+    verify(prescricaoService, times(1)).delete(1L);
+  }
+
 }
