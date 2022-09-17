@@ -77,4 +77,22 @@ public class MedicamentoControllerTest extends ControllerUnitTest {
     verify(medicamentoService, times(1)).save(any(Medicamento.class));
   }
 
+  @Test
+  public void deve_obter_um_medicamento() throws Exception {
+    Medicamento medicamento = criarMedicamento();
+    medicamento.setId(1L);
+
+    when(medicamentoService.findById(anyLong())).thenReturn(medicamento);
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/medicamento/{id}", medicamento.getId())
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("id", Matchers.notNullValue());
+
+    verify(medicamentoService, times(1)).findById(medicamento.getId());
+  }
+
 }
