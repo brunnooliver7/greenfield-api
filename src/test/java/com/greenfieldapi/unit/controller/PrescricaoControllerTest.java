@@ -8,6 +8,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -74,6 +76,26 @@ public class PrescricaoControllerTest extends ControllerUnitTest {
       .body("medicoId", Matchers.equalTo(2));
 
     verify(prescricaoService, times(1)).save(any(Prescricao.class));
+  }
+
+  @Test
+  public void deve_obter_todas_as_prescricoes_de_um_medico() {
+    Long medicoId = 1L;
+    Prescricao prescricao1 = criarPrescricao(medicoId, 1L);
+    Prescricao prescricao2 = criarPrescricao(medicoId, 2L);
+
+    when(prescricaoService.findByMedicoId(medicoId))
+      .thenReturn(Arrays.asList(prescricao1,prescricao2));
+
+    given()
+      .accept(ContentType.JSON)
+    .when()
+      .get("/prescricao/medico/{medicoId}", medicoId)
+    .then()
+      .statusCode(HttpStatus.OK.value())
+      .body("size()", Matchers.equalTo(2));
+
+    verify(prescricaoService, times(1)).findByMedicoId(medicoId);
   }
 
   @Test
