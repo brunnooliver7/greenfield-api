@@ -1,6 +1,6 @@
 package com.greenfieldapi;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 
 import com.greenfieldapi.domain.model.Medicamento;
@@ -15,7 +15,7 @@ public class TestUtils {
       .cpf(cpf)
       .email(email)
       .nome("nome")
-      .dtNascimento(LocalDate.of(2000, 1, 1))
+      .dtNascimento(OffsetDateTime.parse("2000-01-01T00:00:00Z"))
       .crm(crm)
       .estadoRegistroCrm("estadoRegistroCrm")
       .estado("ES")
@@ -28,7 +28,7 @@ public class TestUtils {
     return Paciente.builder()
       .cpf(cpf)
       .nome("nome")
-      .dtNascimento(LocalDate.of(2000, 1, 1))
+      .dtNascimento(OffsetDateTime.parse("2000-01-01T00:00:00Z"))
       .sexo("F")
       .build();
   }

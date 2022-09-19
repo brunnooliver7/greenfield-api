@@ -1,6 +1,6 @@
 package com.greenfieldapi.domain.model;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -50,7 +50,7 @@ public class Paciente {
   @Column(name = "dt_nascimento", nullable = false)
   @NotNull
   @PastOrPresent
-  private LocalDate dtNascimento;
+  private OffsetDateTime dtNascimento;
   
   @Column(nullable = false)
   @NotNull
