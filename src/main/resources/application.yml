@@ -5,6 +5,7 @@ spring:
         url: jdbc:postgresql://localhost/postgres
         username: root
         password: root
+        hikari.connection-init-sql: SET TIME ZONE 'UTC'
     jpa:
         database: POSTGRESQL
         show-sql: true
