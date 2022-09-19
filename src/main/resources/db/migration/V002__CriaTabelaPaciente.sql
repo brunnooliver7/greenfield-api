@@ -4,8 +4,8 @@ create table tb_paciente (
   dt_nascimento date not null, 
   nome varchar(255) not null, 
   sexo varchar(255) not null, 
-  dt_cadastro date not null,
-  dt_atualizacao date not null,
+  dt_cadastro timestamp not null,
+  dt_atualizacao timestamp not null,
 
   primary key (id)
 );

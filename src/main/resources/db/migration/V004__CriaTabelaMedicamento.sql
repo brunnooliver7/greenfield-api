@@ -4,8 +4,8 @@ create table tb_medicamento (
   dosagem varchar(255), 
   frequencia varchar(255), 
   quantidade int4, 
-  dt_cadastro date not null,
-  dt_atualizacao date not null,
+  dt_cadastro timestamp not null,
+  dt_atualizacao timestamp not null,
 
   primary key (id)
 );

@@ -64,11 +64,11 @@ public class Paciente {
   private List<Prescricao> prescricoes;
 
   @CreationTimestamp
-  @Column(name= "dt_cadastro", nullable = false, columnDefinition = "datetime")
+  @Column(name= "dt_cadastro", nullable = false, columnDefinition = "timestamp")
   private OffsetDateTime dtCadastro;
 
   @UpdateTimestamp
-  @Column(name= "dt_atualizacao", nullable = false, columnDefinition = "datetime")
+  @Column(name= "dt_atualizacao", nullable = false, columnDefinition = "timestamp")
   private OffsetDateTime dtAtualizacao;
 
 }

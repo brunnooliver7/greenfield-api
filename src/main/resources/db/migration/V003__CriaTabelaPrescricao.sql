@@ -2,8 +2,8 @@ create table tb_prescricao (
   id  bigserial not null, 
   medico_id int8 not null, 
   paciente_id int8 not null, 
-  dt_cadastro date not null,
-  dt_atualizacao date not null,
+  dt_cadastro timestamp not null,
+  dt_atualizacao timestamp not null,
 
   primary key (id)
 );
