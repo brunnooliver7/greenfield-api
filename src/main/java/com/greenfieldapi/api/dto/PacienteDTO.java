@@ -15,6 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PacienteDTO {
+
   private Long id;
 
   @NotBlank
@@ -26,9 +27,14 @@ public class PacienteDTO {
 
   @NotNull
   @PastOrPresent
-  private OffsetDateTime dtNascimento;  
+  private OffsetDateTime dtNascimento;
 
   @NotNull
   @Size(min = 1)
   private String sexo;
+
+  private OffsetDateTime dtCadastro;
+
+  private OffsetDateTime dtAtualizacao;
+
 }

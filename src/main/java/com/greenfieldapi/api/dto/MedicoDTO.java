@@ -18,36 +18,42 @@ import lombok.Setter;
 @Setter
 @Builder
 public class MedicoDTO {
+
   private Long id;
 
   @NotBlank
   @CPF
   private String cpf;
-  
+
   @NotBlank
   @Email
   private String email;
-  
+
   @NotBlank
   private String nome;
-  
+
   @NotNull
   @PastOrPresent
   private OffsetDateTime dtNascimento;
-  
+
   @NotBlank
   private String crm;
-  
+
   @NotBlank
   private String estadoRegistroCrm;
-  
+
   @NotBlank
   private String estado;
-  
+
   @NotBlank
   @Size(min = 1)
   private String sexo;
-  
+
   @NotBlank
   private String senha;
+
+  private OffsetDateTime dtCadastro;
+
+  private OffsetDateTime dtAtualizacao;
+
 }

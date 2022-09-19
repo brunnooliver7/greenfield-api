@@ -8,7 +8,9 @@ create table tb_medico (
   estado_registro_crm varchar(255) not null, 
   nome varchar(255) not null, 
   senha varchar(255) not null, 
-  sexo varchar(255) not null, 
+  sexo varchar(255) not null,
+  dt_cadastro date not null,
+  dt_atualizacao date not null,
   
   primary key (id)
 );

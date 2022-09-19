@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.AllArgsConstructor;
@@ -79,4 +81,13 @@ public class Medico {
 
   @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
   private List<Prescricao> prescricoes;
+
+  @CreationTimestamp
+  @Column(name= "dt_cadastro", nullable = false, columnDefinition = "datetime")
+  private OffsetDateTime dtCadastro;
+
+  @UpdateTimestamp
+  @Column(name= "dt_atualizacao", nullable = false, columnDefinition = "datetime")
+  private OffsetDateTime dtAtualizacao;
+  
 }

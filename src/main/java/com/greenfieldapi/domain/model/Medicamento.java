@@ -1,5 +1,7 @@
 package com.greenfieldapi.domain.model;
 
+import java.time.OffsetDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,4 +43,13 @@ public class Medicamento {
   private String dosagem;
   
   private String frequencia;
+
+  @CreationTimestamp
+  @Column(name= "dt_cadastro", nullable = false, columnDefinition = "datetime")
+  private OffsetDateTime dtCadastro;
+
+  @UpdateTimestamp
+  @Column(name= "dt_atualizacao", nullable = false, columnDefinition = "datetime")
+  private OffsetDateTime dtAtualizacao;
+
 }

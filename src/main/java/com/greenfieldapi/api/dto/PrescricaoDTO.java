@@ -1,5 +1,6 @@
 package com.greenfieldapi.api.dto;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PrescricaoDTO {
+
   private Long id;
 
   @NotNull
@@ -18,7 +20,12 @@ public class PrescricaoDTO {
 
   @NotNull
   private Long pacienteId;
-  
+
   @Valid
   private List<MedicamentoDTO> medicamentos;
+
+  private OffsetDateTime dtCadastro;
+
+  private OffsetDateTime dtAtualizacao;
+
 }

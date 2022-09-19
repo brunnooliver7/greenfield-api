@@ -1,5 +1,6 @@
 package com.greenfieldapi.domain.model;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,4 +54,13 @@ public class Prescricao {
 
   @OneToMany(cascade = CascadeType.ALL)
   private List<Medicamento> medicamentos;
+
+  @CreationTimestamp
+  @Column(name= "dt_cadastro", nullable = false, columnDefinition = "datetime")
+  private OffsetDateTime dtCadastro;
+
+  @UpdateTimestamp
+  @Column(name= "dt_atualizacao", nullable = false, columnDefinition = "datetime")
+  private OffsetDateTime dtAtualizacao;
+
 }
