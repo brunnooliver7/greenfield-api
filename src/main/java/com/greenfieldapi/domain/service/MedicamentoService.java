@@ -33,6 +33,7 @@ public class MedicamentoService {
   public void delete(Long id) {
     try {
       medicamentoRepository.deleteById(id);
+      medicamentoRepository.flush();
     } catch (EmptyResultDataAccessException e) {
       throw new MedicamentoNaoEncontradoException(id);
     } catch (DataIntegrityViolationException e) {

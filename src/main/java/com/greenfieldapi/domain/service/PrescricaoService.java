@@ -39,6 +39,7 @@ public class PrescricaoService {
   public void delete(Long id) {
     try {
       prescricaoRepository.deleteById(id);
+      prescricaoRepository.flush();
     } catch (EmptyResultDataAccessException e) {
       throw new PrescricaoNaoEncontradaException(id);
     }

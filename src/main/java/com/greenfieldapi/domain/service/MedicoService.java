@@ -35,6 +35,7 @@ public class MedicoService {
   public void delete(Long id) {
     try {
       medicoRepository.deleteById(id);
+      medicoRepository.flush();
     } catch (EmptyResultDataAccessException e) {
       throw new MedicoNaoEncontradoException(id);
     }

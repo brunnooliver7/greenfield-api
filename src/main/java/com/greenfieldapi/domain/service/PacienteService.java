@@ -35,6 +35,7 @@ public class PacienteService {
   public void delete(Long id) {
     try {
       pacienteRepository.deleteById(id);
+      pacienteRepository.flush();
     } catch (EmptyResultDataAccessException e) {
       throw new PacienteNaoEncontradoException(id);
     }
