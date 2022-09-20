@@ -1,5 +1,6 @@
 package com.greenfieldapi.api.dto;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 import javax.validation.constraints.NotBlank;
@@ -27,7 +28,7 @@ public class PacienteDTO {
 
   @NotNull
   @PastOrPresent
-  private OffsetDateTime dtNascimento;
+  private LocalDate dtNascimento;
 
   @NotNull
   @Size(min = 1)

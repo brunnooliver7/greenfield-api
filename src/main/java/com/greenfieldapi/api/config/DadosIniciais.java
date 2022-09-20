@@ -1,6 +1,6 @@
 package com.greenfieldapi.api.config;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class DadosIniciais implements ApplicationRunner {
       .cpf("07978344002")
       .email("andre@email")
       .nome("André da Silva")
-      .dtNascimento(OffsetDateTime.parse("2000-01-01T00:00:00Z"))
+      .dtNascimento(LocalDate.of(2000, 1, 1))
       .crm("001")
       .estadoRegistroCrm("ativo")
       .estado("DF")
@@ -80,7 +80,7 @@ public class DadosIniciais implements ApplicationRunner {
       .cpf("89243903098")
       .email("bernardo@email")
       .nome("Bernardo Gonçalvez")
-      .dtNascimento(OffsetDateTime.parse("2000-02-02T00:00:00Z"))
+      .dtNascimento(LocalDate.of(2000, 2, 2))
       .crm("002")
       .estadoRegistroCrm("suspenso")
       .estado("SP")
@@ -94,7 +94,7 @@ public class DadosIniciais implements ApplicationRunner {
       .cpf("13652543050")
       .email("camila@email")
       .nome("Camila Vasconcelos")
-      .dtNascimento(OffsetDateTime.parse("2000-03-03T00:00:00Z"))
+      .dtNascimento(LocalDate.of(2000, 3, 3))
       .crm("003")
       .estadoRegistroCrm("ativo")
       .estado("MG")
@@ -107,7 +107,7 @@ public class DadosIniciais implements ApplicationRunner {
     return Paciente.builder()
       .cpf("99511685074")
       .nome("Augusto Borges")
-      .dtNascimento(OffsetDateTime.parse("2000-01-01T00:00:00Z"))
+      .dtNascimento(LocalDate.of(2000, 1, 1))
       .sexo("M")
       .build();
   }
@@ -116,7 +116,7 @@ public class DadosIniciais implements ApplicationRunner {
     return Paciente.builder()
       .cpf("38143136078")
       .nome("Bruna Matos")
-      .dtNascimento(OffsetDateTime.parse("2000-02-02T00:00:00Z"))
+      .dtNascimento(LocalDate.of(2000, 2, 2))
       .sexo("F")
       .build();
   }
@@ -125,7 +125,7 @@ public class DadosIniciais implements ApplicationRunner {
     return Paciente.builder()
       .cpf("45244172069")
       .nome("Carol Albuquerque")
-      .dtNascimento(OffsetDateTime.parse("2000-03-03T00:00:00Z"))
+      .dtNascimento(LocalDate.of(2000, 3, 3))
       .sexo("F")
       .build();
   }

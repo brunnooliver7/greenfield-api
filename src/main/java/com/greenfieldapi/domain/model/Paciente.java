@@ -1,5 +1,6 @@
 package com.greenfieldapi.domain.model;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class Paciente {
   @Column(name = "dt_nascimento", nullable = false)
   @NotNull
   @PastOrPresent
-  private OffsetDateTime dtNascimento;
+  private LocalDate dtNascimento;
   
   @Column(nullable = false)
   @NotNull
