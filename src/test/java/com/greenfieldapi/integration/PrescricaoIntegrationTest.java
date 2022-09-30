@@ -91,7 +91,7 @@ public class PrescricaoIntegrationTest extends IntegrationTest {
       .put("/prescricao")
     .then()
       .statusCode(HttpStatus.OK.value())
-      .body("medicoId", equalTo(dto.getMedicoId().intValue()));
+      .body("medico_id", equalTo(dto.getMedicoId().intValue()));
   }
 
   @Test

@@ -5,11 +5,13 @@ import java.time.OffsetDateTime;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 public class MedicamentoDTO {
 
   private Long id;

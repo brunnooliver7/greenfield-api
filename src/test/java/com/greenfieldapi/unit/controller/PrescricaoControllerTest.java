@@ -73,7 +73,7 @@ public class PrescricaoControllerTest extends ControllerUnitTest {
       .put("/prescricao")
     .then()
       .statusCode(HttpStatus.OK.value())
-      .body("medicoId", Matchers.equalTo(2));
+      .body("medico_id", Matchers.equalTo(2));
 
     verify(prescricaoService, times(1)).save(any(Prescricao.class));
   }
