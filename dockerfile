@@ -1,4 +1,4 @@
-FROM openjdk:17-slim
+FROM openjdk:11-slim
 WORKDIR /app
 COPY target/*jar /app/api.jar
 COPY wait-for-it.sh /wait-for-it.sh
